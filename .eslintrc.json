@@ -30,8 +30,9 @@
     "import/no-unresolved": [
       "error",
       {
-        "ignore": ["firebase"]
+        "ignore": ["firebase", "firebase/database", "firebase/auth"]
       }
-    ]
+    ],
+    "import/no-extraneous-dependencies": ["error", { "projectDependencies": false }]
   }
 }

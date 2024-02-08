@@ -1,5 +1,3 @@
-import firebase from 'firebase';
-
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -11,9 +9,4 @@ const firebaseConfig = {
   databaseURL: process.env.FIREBASE_DATABASE_URL
 };
 
-const app = firebase.initializeApp(firebaseConfig);
-
-export const firebaseDatabase = firebase.database();
-export const firebaseAuth = firebase.auth();
-
-export default app;
+export default firebaseConfig;
