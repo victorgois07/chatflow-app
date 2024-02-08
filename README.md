@@ -15,6 +15,8 @@
 - [ChatFlow](#chatflow)
   - [Tabela de Conteúdos](#tabela-de-conteúdos)
   - [Sobre](#sobre)
+  - [Estrutura do Projeto](#estrutura-do-projeto)
+    - [src/](#src)
   - [Funcionalidades](#funcionalidades)
   - [Demonstração da Aplicação](#demonstração-da-aplicação)
   - [Como Rodar o Projeto](#como-rodar-o-projeto)
@@ -28,6 +30,22 @@
 ## Sobre
 
 <p align="center">ChatFlow é projetado para fornecer uma plataforma de comunicação eficaz e envolvente, permitindo aos usuários se registrar, acessar diferentes salas de chat e interagir através de mensagens em tempo real.</p>
+
+## Estrutura do Projeto
+
+O projeto "ChatFlow" segue os princípios da Clean Architecture, garantindo a separação de preocupações e a independência das camadas. A estrutura de pastas é organizada da seguinte forma:
+
+### src/
+
+A pasta `src/` contém todos os arquivos necessários para a aplicação, divididos nas seguintes subpastas:
+
+- **data/:** Representa a camada de dados da Clean Architecture, contendo as implementações das regras de negócio declaradas no domínio.
+- **domain/:** Camada do domínio, a mais interna da aplicação, contendo as regras de negócio sem dependências de outras camadas.
+- **infra/:** Implementações referentes ao protocolo HTTP e ao cache, além de bibliotecas externas.
+- **main/:** Camada principal, onde as interfaces desenvolvidas na camada de apresentação são integradas com as regras de negócio das camadas internas, utilizando padrões de design como Factory Method, Composite e Builder.
+- **presentation/:** Contém a parte visual da aplicação, utilizando a abordagem Atomic Design para organizar os componentes em `atoms/`, `molecules/`, `organisms/`, `templates/` e `pages/`.
+- **requirements/:** Documentação dos requisitos do sistema.
+- **validation/:** Implementações das validações usadas nos campos.
 
 ## Funcionalidades
 
