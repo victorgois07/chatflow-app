@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# ChatFlow
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+    <img alt="ChatFlow Logo" title="ChatFlow" src="./public/logo.webp" width="200px" />
+</h1>
 
-## Available Scripts
+<p align="center">🚀 ChatFlow é um aplicativo de chat em tempo real construído com React.js e Firebase, oferecendo uma experiência de comunicação dinâmica e interativa.</p>
 
-In the project directory, you can run:
+<p align="center">
+  <img src="https://img.shields.io/badge/status-em%20desenvolvimento-yellowgreen" alt="Status: Em Desenvolvimento">
+</p>
 
-### `npm start`
+## Tabela de Conteúdos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [ChatFlow](#chatflow)
+  - [Tabela de Conteúdos](#tabela-de-conteúdos)
+  - [Sobre](#sobre)
+  - [Funcionalidades](#funcionalidades)
+  - [Demonstração da Aplicação](#demonstração-da-aplicação)
+  - [Como Rodar o Projeto](#como-rodar-o-projeto)
+    - [Pré-requisitos](#pré-requisitos)
+    - [Instalando e Executando](#instalando-e-executando)
+  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+  - [Como Contribuir](#como-contribuir)
+  - [Autor](#autor)
+  - [Licença](#licença)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Sobre
 
-### `npm test`
+<p align="center">ChatFlow é projetado para fornecer uma plataforma de comunicação eficaz e envolvente, permitindo aos usuários se registrar, acessar diferentes salas de chat e interagir através de mensagens em tempo real.</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Funcionalidades
 
-### `npm run build`
+- [x] Cadastro e autenticação de usuários
+- [x] Criação e gestão de salas de chat
+- [ ] Envio e recebimento de mensagens em tempo real
+- [ ] Pesquisa e participação em salas existentes
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Demonstração da Aplicação
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p align="center">🚧 Em construção... 🚧</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Como Rodar o Projeto
 
-### `npm run eject`
+### Pré-requisitos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). Além disso, é bom ter um editor para trabalhar com o código, como o [VSCode](https://code.visualstudio.com/).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Instalando e Executando
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+# Clone este repositório
+$ git clone <https://github.com/seu-usuario/chatflow-app>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Acesse a pasta do projeto no terminal
+$ cd chatflow-app
 
-## Learn More
+# Instale as dependências
+$ npm install
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Execute a aplicação em modo de desenvolvimento
+$ npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# O servidor iniciará na porta:3000 - acesse <http://localhost:3000>
+```
 
-### Code Splitting
+## Tecnologias Utilizadas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+As seguintes ferramentas foram usadas na construção do projeto:
 
-### Analyzing the Bundle Size
+- [React.js](https://pt-br.reactjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Material UI](https://mui.com/)
+- [React Query](https://react-query.tanstack.com/)
+- [Axios](https://axios-http.com/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Como Contribuir
 
-### Making a Progressive Web App
+Para contribuir com ChatFlow, siga estas etapas:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Bifurque este repositório.
+2. Crie uma branch: `git checkout -b <nome_branch>`.
+3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
+4. Envie para a branch original: `git push origin <nome_do_projeto> / <local>`
+5. Crie a solicitação de pull.
 
-### Advanced Configuration
+Alternativamente, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/articles/creating-a-pull-request/).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Autor
 
-### Deployment
+👤 **Seu Nome**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- GitHub: [@victorgois07](https://github.com/victorgois07)
+- LinkedIn: [Victor Gois Vieira](https://www.linkedin.com/in/victor-gois-26403a28/)
 
-### `npm run build` fails to minify
+## Licença
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
