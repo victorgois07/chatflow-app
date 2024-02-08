@@ -26,5 +26,12 @@
       "version": "detect"
     }
   },
-  "rules": {}
+  "rules": {
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["firebase"]
+      }
+    ]
+  }
 }
