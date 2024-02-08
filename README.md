@@ -47,6 +47,18 @@ A pasta `src/` contém todos os arquivos necessários para a aplicação, dividi
 - **requirements/:** Documentação dos requisitos do sistema.
 - **validation/:** Implementações das validações usadas nos campos.
 
+### presentation/
+
+Contém a parte visual da aplicação, organizada conforme a abordagem Atomic Design. Dentro desta pasta, temos as seguintes subpastas:
+
+- **assets/:** Recursos gráficos e de mídia usados na interface do usuário.
+- **components/:** Componentes da UI divididos em `atoms/`, `molecules/`, `organisms/` e `templates/`, seguindo os princípios do Atomic Design.
+- **hooks/:** Hooks personalizados do React para lógica de estado e efeitos colaterais.
+- **pages/:** Componentes que representam as páginas acessíveis na aplicação. Cada componente de página organiza o layout e os componentes necessários para apresentar uma seção completa da aplicação, como a página de login, a página inicial, entre outras.
+- **routes/:** Configuração das rotas da aplicação, definindo quais componentes de página são renderizados com base na URL.
+- **styles/:** Estilos globais e temáticos aplicáveis em toda a aplicação.
+- **test/:** Testes específicos para a camada de apresentação, incluindo testes de componentes individuais e integrações de página.
+
 ## Funcionalidades
 
 - [x] Cadastro e autenticação de usuários
