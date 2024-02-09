@@ -1,16 +1,16 @@
 import userRepository from '../repositories/userRepository';
 
 class AuthenticateUser {
+  constructor(user) {
+    this.userRepository = user;
+  }
+
   async execute(email, password) {
-    try {
-      const user = await userRepository.signInUser(email, password);
-      console.log('User authenticated successfully');
-      return user;
-    } catch (error) {
-      console.error('Error authenticating user: ', error);
-      throw error;
-    }
+    const user = await this.userRepository.signInUser(email, password);
+    return user;
   }
 }
 
-export default new AuthenticateUser();
+const authenticateUser = new AuthenticateUser(userRepository);
+
+export default authenticateUser;
