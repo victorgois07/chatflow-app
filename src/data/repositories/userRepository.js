@@ -36,6 +36,7 @@ class UserRepository {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
       console.log('User signed in successfully', userCredential.user);
       localStorage.setItem('userToken', userCredential.user.accessToken);
+      localStorage.setItem('userId', userCredential.user.uid);
       return userCredential.user;
     } catch (error) {
       console.error('Error signing in user: ', error);
@@ -49,6 +50,7 @@ class UserRepository {
       const result = await signInWithPopup(this.auth, provider);
       const { user } = result;
       localStorage.setItem('userToken', user.accessToken);
+      localStorage.setItem('userId', user.uid);
       const userRef = ref(this.db, `users/${user.uid}`);
       const snapshot = await get(userRef);
 
