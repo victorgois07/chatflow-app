@@ -1,4 +1,4 @@
-import { getDatabase, push, ref, set } from 'firebase/database';
+import { getDatabase, push, ref, set, get } from 'firebase/database';
 import firebaseApp from '../../main/config/firebase';
 
 class RoomRepository {
@@ -6,6 +6,7 @@ class RoomRepository {
     this.db = getDatabase(firebaseApp);
   }
 
+  // Method to create a new room
   async createRoom({ roomName, maxUsers, isPrivate, adminId }) {
     const newRoomRef = push(ref(this.db, 'rooms'));
     await set(newRoomRef, {
@@ -16,6 +17,17 @@ class RoomRepository {
     });
 
     return newRoomRef.key;
+  }
+
+  async getAllRooms() {
+    const roomsRef = ref(this.db, 'rooms');
+    try {
+      const snapshot = await get(roomsRef);
+      return snapshot.val();
+    } catch (error) {
+      console.error('Error getting rooms: ', error);
+      throw error;
+    }
   }
 }
 

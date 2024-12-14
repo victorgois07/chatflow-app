@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,32 +20,12 @@ import {
   Toolbar,
   Typography
 } from '@mui/material';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatRoom from '../components/ChatRoom';
 import CreateRoomDrawer from '../components/CreateRoomDrawer';
+import RoomRepository from '../../data/repositories/roomRepository'; // Import the RoomRepository
 
 const drawerWidth = 200;
-
-const openedMixin = theme => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen
-  }),
-  overflowX: 'hidden'
-});
-
-const closedMixin = theme => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`
-  }
-});
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: prop => prop !== 'open'
@@ -64,72 +45,106 @@ const AppBar = styled(MuiAppBar, {
   })
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'open' })(({ theme, open }) => ({
+const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
-  paddingTop: theme.spacing(12),
   ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme)
+    '& .MuiDrawer-paper': {
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen
+      })
+    }
   }),
   ...(!open && {
-    ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme)
+    '& .MuiDrawer-paper': {
+      width: theme.spacing(8),
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      })
+    }
   })
 }));
 
+const CenteredStack = styled(Stack)({
+  minHeight: '100vh',
+  justifyContent: 'center',
+  alignItems: 'center'
+});
+
 function HomePage() {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [drawerCreateRoomOpen, setDrawerCreateRoomOpen] = React.useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerCreateRoomOpen, setDrawerCreateRoomOpen] = useState(false);
+  const [notificationMenuAnchorEl, setNotificationMenuAnchorEl] = useState(null);
+  const [currentRoom, setCurrentRoom] = useState(null);
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [roomName, setRoomName] = useState('');
+  const navigate = useNavigate();
 
-  const [notificationMenuAnchorEl, setNotificationMenuAnchorEl] = React.useState(null);
-  const [currentRoom, setCurrentRoom] = React.useState(null);
+  const handleDrawerToggle = () => setDrawerOpen(prev => !prev);
+  const handleNotificationMenuOpen = event => setNotificationMenuAnchorEl(event.currentTarget);
+  const handleNotificationMenuClose = () => setNotificationMenuAnchorEl(null);
 
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-  };
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const roomsData = await RoomRepository.getAllRooms();
+        const roomList = Object.keys(roomsData).map(key => ({
+          ...roomsData[key],
+          id: key
+        }));
+        setRooms(roomList);
+        console.log(roomList);
+      } catch (error) {
+        console.error('Error fetching rooms:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleNotificationMenuOpen = event => {
-    setNotificationMenuAnchorEl(event.currentTarget);
-  };
-
-  const handleNotificationMenuClose = () => {
-    setNotificationMenuAnchorEl(null);
-  };
+    fetchRooms();
+    console.log(rooms);
+  }, []);
 
   return (
-    <Stack>
+    <CenteredStack>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerToggle}>
+          <IconButton edge="start" color="inherit" aria-label="toggle navigation drawer" onClick={handleDrawerToggle}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Home
           </Typography>
           <TextField
             variant="outlined"
             color="primary"
             size="small"
-            placeholder="Search Chat Rooms"
-            style={{ marginRight: 16 }}
+            placeholder="Buscar quartos"
+            sx={{ marginRight: 2 }}
           />
-          <IconButton color="inherit">
+          <IconButton color="inherit" aria-label="search">
             <SearchIcon />
           </IconButton>
-          <IconButton color="inherit">
-            <Button variant="contained" color="inherit" onClick={() => setDrawerCreateRoomOpen(true)}>
-              Create Room
-            </Button>
-            <CreateRoomDrawer
-              open={drawerCreateRoomOpen}
-              onClose={() => setDrawerCreateRoomOpen(false)}
-              userId={localStorage.getItem('userId')}
-            />
-          </IconButton>
-          <IconButton color="inherit" onClick={handleNotificationMenuOpen}>
+          <Button
+            variant="contained"
+            color="inherit"
+            onClick={() => setDrawerCreateRoomOpen(true)}
+            style={{ backgroundColor: '#000000', color: '#fff' }}
+          >
+            Criar quarto
+          </Button>
+          <CreateRoomDrawer
+            open={drawerCreateRoomOpen}
+            onClose={() => setDrawerCreateRoomOpen(false)}
+            userId={localStorage.getItem('userId')}
+          />
+          <IconButton color="inherit" onClick={handleNotificationMenuOpen} aria-label="notifications">
             <NotificationsIcon />
           </IconButton>
           <Menu
@@ -140,28 +155,58 @@ function HomePage() {
             <MenuItem onClick={handleNotificationMenuClose}>Notification 1</MenuItem>
             <MenuItem onClick={handleNotificationMenuClose}>Notification 2</MenuItem>
           </Menu>
-          <IconButton color="inherit">
-            <LogoutIcon />
+          <IconButton color="inherit" aria-label="logout">
+            <LogoutIcon
+              onClick={() => {
+                localStorage.removeItem('metabase.DEVICE');
+                localStorage.removeItem('metabase.SESSION');
+                localStorage.removeItem('csrftoken');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userToken');
+                navigate('/login');
+              }}
+            />
           </IconButton>
         </Toolbar>
       </AppBar>
 
-      <Drawer variant="permanent" anchor="left" open onClose={handleDrawerToggle}>
-        <List sx={{ pt: 12 }}>
-          <ListItem button onClick={() => setCurrentRoom('Sala 1')}>
-            <ListItemText primary="Sala 1" />
-          </ListItem>
-          <ListItem button onClick={() => setCurrentRoom('Sala 2')}>
-            <ListItemText primary="Sala 2" />
-          </ListItem>
+      <Drawer variant="permanent" open={drawerOpen}>
+        <List sx={{ pt: 10 }}>
+          <Typography variant="h6" sx={{ ml: 2, mb: 2 }}>
+            Salas disponíveis
+          </Typography>
+          {loading ? (
+            <ListItem>
+              <ListItemText primary="Loading rooms..." />
+            </ListItem>
+          ) : (
+            rooms.map(room => (
+              <ListItem
+                button
+                key={room.id}
+                onClick={() => {
+                  setCurrentRoom(room);
+                  setRoomName(room.name);
+                }}
+              >
+                <ListItemText primary={room.name} />
+              </ListItem>
+            ))
+          )}
         </List>
       </Drawer>
 
-      <Container component="main" maxWidth="md" p={3}>
-        <Typography variant="h4">Bem-vindo(a) ao Chat!</Typography>
-        {currentRoom && <ChatRoom roomName={currentRoom} />}
+      <Container component="main" maxWidth="md" sx={{ mt: 12 }}>
+        <Typography variant="h4" gutterBottom align="center">
+          {roomName ? `Bem-vindo(a) ao Chat ${roomName}!` : 'O Chat selecionado aparecerá aqui'}
+        </Typography>
+        {currentRoom ? (
+          <ChatRoom roomName={currentRoom.name} />
+        ) : (
+          <Typography align="center">Selecione uma sala!</Typography>
+        )}
       </Container>
-    </Stack>
+    </CenteredStack>
   );
 }
 
