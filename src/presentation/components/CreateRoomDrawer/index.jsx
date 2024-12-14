@@ -1,12 +1,17 @@
 import { Button, Checkbox, Drawer, FormControlLabel, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import createRoom from '../../../data/usecases/CreateRoom';
 
 function CreateRoomDrawer({ open, onClose, userId }) {
   const [roomName, setRoomName] = useState('');
   const [maxUsers, setMaxUsers] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
+
+  useEffect(() => {
+    console.log(roomName);
+    console.log(maxUsers);
+  }, [roomName, maxUsers]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -25,10 +30,27 @@ function CreateRoomDrawer({ open, onClose, userId }) {
 
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
-      <form onSubmit={handleSubmit} style={{ margin: '16px', width: '250px' }}>
-        <TextField label="Room Name" fullWidth value={roomName} onChange={e => setRoomName(e.target.value)} required />
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          paddingBottom: '3rem',
+          padding: '5rem',
+          width: '45vw'
+        }}
+      >
         <TextField
-          label="Max Users"
+          label="Nome do quarto"
+          fullWidth
+          value={roomName}
+          onChange={e => setRoomName(e.target.value)}
+          required
+          style={{ marginBottom: '1.5rem' }}
+        />
+        <TextField
+          label="Quantidade máxima de usuários"
           type="number"
           fullWidth
           value={maxUsers}
@@ -37,10 +59,10 @@ function CreateRoomDrawer({ open, onClose, userId }) {
         />
         <FormControlLabel
           control={<Checkbox checked={isPrivate} onChange={e => setIsPrivate(e.target.checked)} />}
-          label="Private Room"
+          label="Quarto privado"
         />
         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
-          Create Room
+          Criar sala
         </Button>
       </form>
     </Drawer>
